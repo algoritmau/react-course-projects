@@ -48,6 +48,7 @@ var IndecisionApp = /*#__PURE__*/function (_React$Component) {
     _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_assertThisInitialized(_this));
     _this.getSuggestion = _this.getSuggestion.bind(_assertThisInitialized(_this));
     _this.handleAddOption = _this.handleAddOption.bind(_assertThisInitialized(_this));
+    _this.handleDeleteOption = _this.handleDeleteOption.bind(_assertThisInitialized(_this));
     _this.state = {
       options: []
     };
@@ -60,6 +61,17 @@ var IndecisionApp = /*#__PURE__*/function (_React$Component) {
       this.setState(function () {
         return {
           options: []
+        };
+      });
+    }
+  }, {
+    key: "handleDeleteOption",
+    value: function handleDeleteOption(optionToRemove) {
+      this.setState(function (prevState) {
+        return {
+          options: prevState.options.filter(function (option) {
+            return optionToRemove !== option;
+          })
         };
       });
     }
@@ -88,17 +100,16 @@ var IndecisionApp = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var title = 'Indecision';
       var subtitle = 'An app to help you get things done.';
       return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Header, {
-        title: title,
         subtitle: subtitle
       }), /*#__PURE__*/React.createElement(Action, {
         hasOptions: this.state.options.length > 0,
         getSuggestion: this.getSuggestion
       }), /*#__PURE__*/React.createElement(Options, {
         options: this.state.options,
-        handleDeleteOptions: this.handleDeleteOptions
+        handleDeleteOptions: this.handleDeleteOptions,
+        handleDeleteOption: this.handleDeleteOption
       }), /*#__PURE__*/React.createElement(AddOption, {
         handleAddOption: this.handleAddOption
       }));
@@ -108,111 +119,51 @@ var IndecisionApp = /*#__PURE__*/function (_React$Component) {
   return IndecisionApp;
 }(React.Component);
 
-var Header = /*#__PURE__*/function (_React$Component2) {
-  _inherits(Header, _React$Component2);
+var Header = function Header(props) {
+  return /*#__PURE__*/React.createElement("header", null, /*#__PURE__*/React.createElement("h1", null, props.title), props.subtitle && /*#__PURE__*/React.createElement("h2", null, props.subtitle));
+};
 
-  var _super2 = _createSuper(Header);
+Header.defaultProps = {
+  title: 'Indecision'
+};
 
-  function Header() {
-    _classCallCheck(this, Header);
+var Action = function Action(props) {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
+    onClick: props.getSuggestion,
+    disabled: !props.hasOptions
+  }, "What should I do?"));
+};
 
-    return _super2.apply(this, arguments);
-  }
+var Options = function Options(props) {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
+    onClick: props.handleDeleteOptions
+  }, "Remove All"), props.options.map(function (option) {
+    return /*#__PURE__*/React.createElement(Option, {
+      optionText: option,
+      handleDeleteOption: props.handleDeleteOption
+    });
+  }));
+};
 
-  _createClass(Header, [{
-    key: "render",
-    value: function render() {
-      this.props;
-      return /*#__PURE__*/React.createElement("header", null, /*#__PURE__*/React.createElement("h1", null, this.props.title), /*#__PURE__*/React.createElement("h2", null, this.props.subtitle));
+var Option = function Option(props) {
+  return /*#__PURE__*/React.createElement("div", null, props.optionText, /*#__PURE__*/React.createElement("button", {
+    onClick: function onClick() {
+      return props.handleDeleteOption(props.optionText);
     }
-  }]);
+  }, "Remove"));
+};
 
-  return Header;
-}(React.Component);
+var AddOption = /*#__PURE__*/function (_React$Component2) {
+  _inherits(AddOption, _React$Component2);
 
-var Action = /*#__PURE__*/function (_React$Component3) {
-  _inherits(Action, _React$Component3);
-
-  var _super3 = _createSuper(Action);
-
-  function Action() {
-    _classCallCheck(this, Action);
-
-    return _super3.apply(this, arguments);
-  }
-
-  _createClass(Action, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
-        onClick: this.props.getSuggestion,
-        disabled: !this.props.hasOptions
-      }, "What should I do?"));
-    }
-  }]);
-
-  return Action;
-}(React.Component);
-
-var Options = /*#__PURE__*/function (_React$Component4) {
-  _inherits(Options, _React$Component4);
-
-  var _super4 = _createSuper(Options);
-
-  function Options() {
-    _classCallCheck(this, Options);
-
-    return _super4.apply(this, arguments);
-  }
-
-  _createClass(Options, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
-        onClick: this.props.handleDeleteOptions
-      }, "Remove All"), this.props.options.map(function (option) {
-        return /*#__PURE__*/React.createElement(Option, {
-          optionText: option
-        });
-      }));
-    }
-  }]);
-
-  return Options;
-}(React.Component);
-
-var Option = /*#__PURE__*/function (_React$Component5) {
-  _inherits(Option, _React$Component5);
-
-  var _super5 = _createSuper(Option);
-
-  function Option() {
-    _classCallCheck(this, Option);
-
-    return _super5.apply(this, arguments);
-  }
-
-  _createClass(Option, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, this.props.optionText);
-    }
-  }]);
-
-  return Option;
-}(React.Component);
-
-var AddOption = /*#__PURE__*/function (_React$Component6) {
-  _inherits(AddOption, _React$Component6);
-
-  var _super6 = _createSuper(AddOption);
+  var _super2 = _createSuper(AddOption);
 
   function AddOption(props) {
     var _this2;
 
     _classCallCheck(this, AddOption);
 
-    _this2 = _super6.call(this, props);
+    _this2 = _super2.call(this, props);
     _this2.handleFormSubmission = _this2.handleFormSubmission.bind(_assertThisInitialized(_this2));
     _this2.state = {
       error: null
@@ -231,6 +182,7 @@ var AddOption = /*#__PURE__*/function (_React$Component6) {
           error: error
         };
       });
+      e.target.elements.option.value = '';
     }
   }, {
     key: "render",
