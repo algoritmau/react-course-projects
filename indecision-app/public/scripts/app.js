@@ -56,6 +56,31 @@ var IndecisionApp = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(IndecisionApp, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      try {
+        var optionsFromLocalStorage = JSON.parse(localStorage.getItem('Options'));
+
+        if (optionsFromLocalStorage) {
+          this.setState(function () {
+            return {
+              options: optionsFromLocalStorage
+            };
+          });
+        }
+      } catch (error) {
+        throw new Error('Malformed JSON!');
+      }
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState) {
+      if (prevState.options.length != this.state.options.length) {
+        var localStorageOptions = JSON.stringify(this.state.options);
+        localStorage.setItem('Options', localStorageOptions);
+      }
+    }
+  }, {
     key: "handleDeleteOptions",
     value: function handleDeleteOptions() {
       this.setState(function () {
@@ -137,7 +162,7 @@ var Action = function Action(props) {
 var Options = function Options(props) {
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
     onClick: props.handleDeleteOptions
-  }, "Remove All"), props.options.map(function (option) {
+  }, "Remove All"), props.options.length === 0 && /*#__PURE__*/React.createElement("p", null, "Get started by adding an item!"), props.options.map(function (option) {
     return /*#__PURE__*/React.createElement(Option, {
       optionText: option,
       handleDeleteOption: props.handleDeleteOption
@@ -182,7 +207,10 @@ var AddOption = /*#__PURE__*/function (_React$Component2) {
           error: error
         };
       });
-      e.target.elements.option.value = '';
+
+      if (!error) {
+        e.target.elements.option.value = '';
+      }
     }
   }, {
     key: "render",

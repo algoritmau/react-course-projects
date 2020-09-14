@@ -10,6 +10,25 @@ class IndecisionApp extends React.Component {
     };
   }
 
+  componentDidMount() {
+    try {
+      const optionsFromLocalStorage = JSON.parse(localStorage.getItem('Options'));
+  
+      if (optionsFromLocalStorage) {
+        this.setState(() => ({ options: optionsFromLocalStorage }));
+      }
+    } catch (error) {
+      throw new Error('Malformed JSON!');
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.options.length != this.state.options.length) {
+      const localStorageOptions = JSON.stringify(this.state.options);
+      localStorage.setItem('Options', localStorageOptions);
+    }
+  }
+
   handleDeleteOptions() {
     this.setState(() => ({ options: [] }));
   }
@@ -93,6 +112,7 @@ const Options = (props) => {
       <button onClick={props.handleDeleteOptions}>
         Remove All
       </button>
+      {props.options.length === 0 && <p>Get started by adding an item!</p>}
       {
         props.options.map(option => (
           <Option 
@@ -120,9 +140,7 @@ class AddOption extends React.Component {
   constructor(props) {
     super(props);
     this.handleFormSubmission = this.handleFormSubmission.bind(this);
-    this.state = {
-      error: null
-    };
+    this.state = { error: null };
   }
 
   handleFormSubmission(e) {
@@ -133,7 +151,9 @@ class AddOption extends React.Component {
 
     this.setState(() => ({ error }));
 
-    e.target.elements.option.value = '';
+    if (!error) {
+      e.target.elements.option.value = '';
+    }
   }
 
   render() {
