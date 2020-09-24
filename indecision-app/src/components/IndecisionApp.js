@@ -5,17 +5,38 @@ import AddOption from './AddOption';
 import Options from './Options';
 
 export default class IndecisionApp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
-    this.getSuggestion = this.getSuggestion.bind(this);
-    this.handleAddOption = this.handleAddOption.bind(this);
-    this.handleDeleteOption = this.handleDeleteOption.bind(this);
-    this.state = {
-      options: []
-    };
+  state = {
+    options: []
+  };
+
+  handleDeleteOptions = () => {
+    this.setState(() => ({ options: [] }));
   }
 
+  handleDeleteOption = optionToRemove => {
+    this.setState((prevState) => ({
+      options: prevState.options.filter(option => optionToRemove !== option)
+    }));
+  }
+
+  getSuggestion = () => {
+    const randomNumber = Math.floor(Math.random() * this.state.options.length);
+    const suggestion = this.state.options[randomNumber];
+    alert(suggestion);
+  }
+
+  handleAddOption = option => {
+    if (!option) {
+      return 'Please enter a valid option to add!';
+    } else if ( this.state.options.includes(option) ) {
+      return `Oops! The option "${option}" already exists.`;
+    }
+
+    this.setState((prevState) => ({ 
+      options: [...prevState.options, option]
+    }));
+  }
+  
   componentDidMount() {
     try {
       const optionsFromLocalStorage = JSON.parse(localStorage.getItem('Options'));
@@ -35,33 +56,6 @@ export default class IndecisionApp extends React.Component {
     }
   }
 
-  handleDeleteOptions() {
-    this.setState(() => ({ options: [] }));
-  }
-
-  handleDeleteOption(optionToRemove) {
-    this.setState((prevState) => ({
-      options: prevState.options.filter(option => optionToRemove !== option)
-    }));
-  }
-
-  getSuggestion() {
-    const randomNumber = Math.floor(Math.random() * this.state.options.length);
-    const suggestion = this.state.options[randomNumber];
-    alert(suggestion);
-  }
-
-  handleAddOption(option) {
-    if (!option) {
-      return 'Please enter a valid option to add!';
-    } else if ( this.state.options.includes(option) ) {
-      return `Oops! The option "${option}" already exists.`;
-    }
-
-    this.setState((prevState) => ({ 
-      options: [...prevState.options, option]
-    }));
-  }
 
   render() {
     const subtitle = 'An app to help you get things done.';
