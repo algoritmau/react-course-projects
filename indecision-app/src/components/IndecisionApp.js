@@ -3,12 +3,15 @@ import Header from './Header';
 import Action from './Action';
 import AddOption from './AddOption';
 import Options from './Options';
+import OptionModal from './OptionModal';
 
 export default class IndecisionApp extends React.Component {
   state = {
-    options: []
+    options: [],
+    suggestedOption: null
   };
 
+  // Event handlers
   handleDeleteOptions = () => {
     this.setState(() => ({ options: [] }));
   }
@@ -21,8 +24,12 @@ export default class IndecisionApp extends React.Component {
 
   getSuggestion = () => {
     const randomNumber = Math.floor(Math.random() * this.state.options.length);
+
     const suggestion = this.state.options[randomNumber];
-    alert(suggestion);
+    
+    this.setState(() => ({
+      suggestedOption: suggestion
+    }));
   }
 
   handleAddOption = option => {
@@ -36,7 +43,13 @@ export default class IndecisionApp extends React.Component {
       options: [...prevState.options, option]
     }));
   }
-  
+
+  handleCloseModal = () => {
+    this.setState({
+      suggestedOption: null
+    });
+  }
+
   componentDidMount() {
     try {
       const optionsFromLocalStorage = JSON.parse(localStorage.getItem('Options'));
@@ -56,7 +69,6 @@ export default class IndecisionApp extends React.Component {
     }
   }
 
-
   render() {
     const subtitle = 'An app to help you get things done.';
 
@@ -74,6 +86,10 @@ export default class IndecisionApp extends React.Component {
         />
         <AddOption 
           handleAddOption={this.handleAddOption}
+        />
+        <OptionModal
+          suggestedOption={this.state.suggestedOption}
+          handleCloseModal={this.handleCloseModal}
         />
       </div>
     );
