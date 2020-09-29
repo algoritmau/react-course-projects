@@ -2,7 +2,7 @@ import React from 'react';
 import Option from './Option';
 
 const Options = props => (
-  <div>
+  <div className="container">
     <button onClick={props.handleDeleteOptions}>
       Remove All
     </button>

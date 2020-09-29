@@ -1,0 +1,13 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: Inter, Helvetica, Arial, sans-serif;
+  font-size: $size-3;
+  background: $dark-blue;
+}

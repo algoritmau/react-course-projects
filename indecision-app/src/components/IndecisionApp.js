@@ -75,18 +75,21 @@ export default class IndecisionApp extends React.Component {
     return (
       <div>
         <Header subtitle={subtitle} />
-        <Action 
-          hasOptions={this.state.options.length > 0} 
-          getSuggestion={this.getSuggestion}
-        />
-        <Options 
-          options={this.state.options} 
-          handleDeleteOptions={this.handleDeleteOptions}
-          handleDeleteOption={this.handleDeleteOption}
-        />
-        <AddOption 
-          handleAddOption={this.handleAddOption}
-        />
+        {/* TODO: Refactor class/architecture to center content */}
+        <main className="container">
+          <Action 
+            hasOptions={this.state.options.length > 0} 
+            getSuggestion={this.getSuggestion}
+          />
+          <Options 
+            options={this.state.options} 
+            handleDeleteOptions={this.handleDeleteOptions}
+            handleDeleteOption={this.handleDeleteOption}
+          />
+          <AddOption 
+            handleAddOption={this.handleAddOption}
+          />
+        </main>
         <OptionModal
           suggestedOption={this.state.suggestedOption}
           handleCloseModal={this.handleCloseModal}
