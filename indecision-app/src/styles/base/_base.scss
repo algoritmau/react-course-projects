@@ -11,3 +11,11 @@ body {
   font-size: $size-3;
   background: $dark-blue;
 }
+
+button {
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}

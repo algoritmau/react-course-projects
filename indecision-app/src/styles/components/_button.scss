@@ -1,0 +1,30 @@
+// Big button
+.btn {
+  background: $purple;
+  color: $off-white;
+  border: none;
+  border-bottom: $size-0 solid darken($purple, 16%);
+
+  &--big {
+    font-weight: 700;
+    font-size: $size-6;
+    width: 100%;
+    margin-block-end: $size-5;
+    padding: $size-4;
+    
+    &:disabled {
+      opacity: 0.56;
+    }
+  }
+
+  &--small {
+    padding: $size-1 $size-2;
+  }
+
+  &-link {
+    background: none;
+    border: none;
+    padding: $size-1 $size-2;
+    color: $off-white;
+  }
+}
