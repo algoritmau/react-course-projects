@@ -1,0 +1,12 @@
+.option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $size-3;
+  border-block-end: 1px solid darken($blue-light, 4%);
+
+  &__text {
+    color: white;
+    margin: 0;
+  }
+}

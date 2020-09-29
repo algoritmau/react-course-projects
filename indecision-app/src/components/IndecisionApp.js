@@ -36,7 +36,7 @@ export default class IndecisionApp extends React.Component {
     if (!option) {
       return 'Please enter a valid option to add!';
     } else if ( this.state.options.includes(option) ) {
-      return `Oops! The option "${option}" already exists.`;
+      return `Oops! The "${option}" option already exists.`;
     }
 
     this.setState((prevState) => ({ 

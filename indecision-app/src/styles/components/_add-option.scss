@@ -1,0 +1,27 @@
+.add-option {
+  padding: $size-3;
+
+  &__error {
+    color: $off-white;
+    font-style: italic;
+    padding: $size-1 $size-3;
+  }
+
+  &__form {
+    display: flex;
+
+    &__input {
+      flex-grow: 1;
+      background: $dark-blue;
+      border: none;
+      border-bottom: $size-0 solid darken($dark-blue, 5%);
+      color: $off-white;
+      padding-inline-start: $size-2;
+      margin-inline-end: $size-2;
+    }
+
+    button {
+      padding: $size-2;
+    }
+  }
+}
