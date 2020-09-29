@@ -1,0 +1,29 @@
+.widget {
+  background: $blue-light;
+  margin-block-end: $size-6;
+
+  &__header {
+    background: $blue;
+    color: $off-white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $size-3;
+  
+    &__title {
+      margin: 0;
+    }
+  }
+
+  &__instructions {
+    color: $off-white;
+    text-align: center;
+    padding: $size-6 0;
+    border-block-end: 1px solid darken($blue-light, 4%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    margin-block-end: $size-3;
+  }
+}
