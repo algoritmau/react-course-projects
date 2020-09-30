@@ -15,6 +15,10 @@
     &:disabled {
       opacity: 0.56;
     }
+
+    @media(max-width: 45rem) {
+      font-size: $size-4;
+    }
   }
 
   &--small {

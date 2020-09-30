@@ -1,4 +1,14 @@
 .container {
   max-width: 60rem;
   margin: 0 auto;
+
+  .btn {
+    @media(max-width: 45rem) {
+      margin-block-end: $size-3;
+    }
+  }
+
+  @media(max-width: 45rem) {
+    padding: $size-3;
+  }
 }
